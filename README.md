@@ -1,52 +1,34 @@
-# Final Project Assignment 2: Explore One More! (FP2) 
+# Final Project Assignment 2: Explore One More! (FP2)
 DUE March 30, 2015 Monday (2015-03-30)
 
-This is just like FP1, but where you do a different library. (Full description of FP1 is [on Piazza.][piazza])
+### My Library: graphics/turtles
+For this assignment, I decided to play around with turtle graphics. There exist two forms of turtle graphics: traditional turtle operations (which follows imperative programming) and functional turtle operations. This emphasizes Racket's multiparadigm design; in this case, I only worked with traditional turtle graphics, which requires the library 'graphics/turtles'. The functional turtle operations require 'graphics/value-turtles'.
 
-During this assignment, you should start looking for teammates. See the project schedule [on Piazza.][schedule]
+In order to initialize the turtles window, I called the following:
 
-Write your report right in this file. Instructions are below. You can delete them if you like, or just leave them at the bottom.
-You are allowed to change/delete anything in this file to make it into your report. It will be public.
-
-This file is formatted with the [**markdown** language][markdown], so take a glance at how that works.
-
-This file IS your report for the assignment, including code and your story.
-
-Code is super easy in markdown, which you can easily do inline `(require net/url)` or do in whole blocks:
 ```
-#lang racket
-
-(require net/url)
+(turtles #t)
 ```
 
-### My Library: (library name here)
-Write what you did!
-Remember that this report must include:
- 
-* a narrative of what you did
-* the code that you wrote
-* output from your code demonstrating what it produced
-* any diagrams or figures explaining your work 
- 
-The narrative itself should be no longer than 350 words. Yes, you can add more files and link or refer to them. This is github, handling files is awesome and easy!
+I then defined two new procedures, draw-turtles and draw-poly-turtles. In draw-turtles, I took two parameters: x is the number of pixels and draws a line on the path, while z is the total number of times the turtle will loop through the procedure. If both x and z are valid parameters, the following will run until z reaches 0:
 
-Ask questions publicly in the Piazza group.
+```
+(begin (split* (turn/radians (/ pi 6)) (turn/radians (/ pi 2)))
+                (draw x)
+                (draw-turtles (+ x 15) (- z 1))))
+```
 
-### How to Do and Submit this assignment
+Once z reaches 0, my program will save the image from the 'Turtles' window as 'new-turtle.png'.
 
-1. To start, [**fork** this repository][forking].
-1. Modify the README.md file and [**commit**][ref-commit] changes to complete your solution.
-  2. (This assignment is just one README.md file, so you can edit it right in github without cloning)
-  3. (You may need to clone and push if you want to add extra files)
-1. [Create a **pull request**][pull-request] on the original repository to turn in the assignment.
+```
+(save-turtle-bitmap "new-turtle" 'png)
+```
 
-<!-- Links -->
-[piazza]: https://piazza.com/class/i55is8xqqwhmr?cid=411
-[schedule]: https://piazza.com/class/i55is8xqqwhmr?cid=453
-[markdown]: https://help.github.com/articles/markdown-basics/
-[forking]: https://guides.github.com/activities/forking/
-[ref-clone]: http://gitref.org/creating/#clone
-[ref-commit]: http://gitref.org/basic/#commit
-[ref-push]: http://gitref.org/remotes/#push
-[pull-request]: https://help.github.com/articles/creating-a-pull-request
+Then, I clear the window to prep for the next procedure call. draw-poly-turtles follows a similar style. It takes in 3 parameters. x is the number of sides, y is the radius, and z is the number of times draw-poly-turtles is called. x and y are passed to the function, regular-poly, which draw a polygon of x sides and y radial length. Assuming that all the parameters are valid, this block of code will occur:
 
+```
+(begin (regular-poly x y)
+                (draw-poly-turtles (+ x 1) (+ y 5) (- z 1))))
+```
+
+Once z reaches 0, my program will save the image from the 'Turtles' window as 'new-poly-turtle.png'. The new-poly-turtle-screenshot.png and new-turtle-screenshot.png show where the 'turtles' are left behind. Turtles are essentially cursors on a Cartesian plane. The reddish-pink markings on these screenshots indicate this.
